@@ -1,4 +1,6 @@
-package model;
+package jeu.model;
+
+import jeu.CasseBrique;
 
 import java.awt.*;
 
@@ -8,8 +10,8 @@ public class Balle extends Sprite {
     private int vitesseVerticale;
 
     public Balle() {
-        this.x = (int)(Math.random() * 600);
-        this.y = (int)(Math.random() * 800);
+        this.x = (int)(Math.random() * CasseBrique.LARGEUR);
+        this.y = (int)(Math.random() * CasseBrique.HAUTEUR);
         this.vitesseHorizontale = (int)(Math.random() * 9) + 1;
         this.vitesseVerticale = (int)(Math.random() * 9) + 1;
         this.couleur = new Color(
@@ -29,11 +31,11 @@ public class Balle extends Sprite {
         x += vitesseHorizontale;
         y += vitesseVerticale;
 
-        if(x < 0 || x > 580) {
+        if(x < 0 || x > CasseBrique.LARGEUR - 20) {
             vitesseHorizontale = -vitesseHorizontale;
         }
 
-        if(y < 0 || y > 780) {
+        if(y < 0 || y > CasseBrique.HAUTEUR - 20) {
             vitesseVerticale = -vitesseVerticale;
         }
     }
@@ -42,6 +44,12 @@ public class Balle extends Sprite {
         dessin.setColor(couleur);
         dessin.fillOval(x, y,20,20);
     }
+    public void inverserVitesseVerticale() {
+
+        vitesseVerticale = -vitesseVerticale;
+
+    }
+
 
     public int getVitesseHorizontale() {
         return vitesseHorizontale;
@@ -58,4 +66,6 @@ public class Balle extends Sprite {
     public void setVitesseVerticale(int vitesseVerticale) {
         this.vitesseVerticale = vitesseVerticale;
     }
+
+
 }

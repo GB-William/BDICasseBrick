@@ -1,4 +1,4 @@
-package model;
+package jeu.model;
 
 import java.awt.*;
 
@@ -7,7 +7,6 @@ public abstract class Sprite {
     protected int x;
     protected int y;
     protected Color couleur;
-
 
     public int getX() {
         return x;

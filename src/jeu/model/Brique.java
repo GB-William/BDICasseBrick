@@ -14,18 +14,26 @@ public class Brique extends Rectangle {
         hauteur = 20;
     }
 
-    //TODO : La brique a une resistance (3 par defaut)
-    //si elle est en collision a vec la balle, elle perd 1 en resistance,
-    // et change de couleur (orange, puis jaune)
-    // a 0 elle est detruite
+    private int resistance = 3;
 
     /**
      * Reduit la resistance de 1
      * @return true si la resistance tombe a 0
      */
     public boolean degat() {
-        return false;
+        resistance--;
+
+        if(resistance == 2) {
+            couleur = Color.ORANGE;
+        } else if(resistance == 1) {
+            couleur = Color.YELLOW;
+        }
+
+        return resistance == 0;
     }
 
+    public int getResistance() {
+        return resistance;
+    }
 
 }

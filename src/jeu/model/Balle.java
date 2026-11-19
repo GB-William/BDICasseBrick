@@ -4,7 +4,7 @@ import jeu.CasseBrique;
 
 import java.awt.*;
 
-public class Balle extends Sprite {
+public class Balle extends Cercle {
 
     private int vitesseHorizontale;
     private int vitesseVerticale;
@@ -25,25 +25,22 @@ public class Balle extends Sprite {
         this.y = y;
         this.vitesseHorizontale = vitesseHorizontale;
         this.vitesseVerticale = vitesseVerticale;
+        this.couleur = Color.BLUE;
     }
 
     public void deplacement() {
         x += vitesseHorizontale;
         y += vitesseVerticale;
 
-        if(x < 0 || x > CasseBrique.LARGEUR - 20) {
+        if(x < 0 || x > CasseBrique.LARGEUR - diametre) {
             vitesseHorizontale = -vitesseHorizontale;
         }
 
-        if(y < 0 || y > CasseBrique.HAUTEUR - 20) {
+        if(y < 0 || y > CasseBrique.HAUTEUR - diametre) {
             vitesseVerticale = -vitesseVerticale;
         }
     }
 
-    public void dessiner(Graphics2D dessin) {
-        dessin.setColor(couleur);
-        dessin.fillOval(x, y,20,20);
-    }
     public void inverserVitesseVerticale() {
 
         vitesseVerticale = -vitesseVerticale;

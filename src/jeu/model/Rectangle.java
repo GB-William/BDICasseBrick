@@ -12,12 +12,12 @@ public class Rectangle extends Sprite {
         dessin.fillRect( x, y, largeur, hauteur);
     }
 
-    public boolean collision(Balle balle) {
+    public boolean collision(Cercle cercle) {
 
-        return balle.getX() > x
-                && balle.getX() < x + largeur
-                && balle.getY() > y
-                && balle.getY() < y + hauteur;
+        return cercle.getX() + cercle.getDiametre() > x
+                && cercle.getX() < x + largeur
+                && cercle.getY() + cercle.getDiametre() > y
+                && cercle.getY() < y + hauteur;
     }
 
 }

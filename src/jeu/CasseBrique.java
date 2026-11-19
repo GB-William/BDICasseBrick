@@ -2,6 +2,7 @@ package jeu;
 
 import jeu.model.Balle;
 import jeu.model.Barre;
+import jeu.model.Bonus;
 import jeu.model.Brique;
 
 import javax.swing.*;
@@ -15,6 +16,7 @@ public class CasseBrique extends Canvas {
 
     private ArrayList<Balle> listeBalle = new ArrayList<>();
     private ArrayList<Brique> listeBrique = new ArrayList<>();
+    private ArrayList<Bonus> listeBonus = new ArrayList<>();
     private Barre barre = new Barre();
 
     public static final int LARGEUR = 600;
@@ -122,8 +124,16 @@ public class CasseBrique extends Canvas {
             for(Brique brique : listeBrique) {
                 for(Balle balle : listeBalle) {
                     if(brique.collision(balle)) {
-                        listeBriqueAsupprimer.add(brique);
                         balle.inverserVitesseVerticale();
+
+                        if(brique.degat()) {
+                            listeBriqueAsupprimer.add(brique);
+
+                            // 50% de chance de faire apparaitre un bonus
+                            if(Math.random() < 0.5) {
+                                listeBonus.add(new Bonus(brique.getX(), brique.getY()));
+                            }
+                        }
                     }
                 }
                 brique.dessiner(dessin);
@@ -141,6 +151,26 @@ public class CasseBrique extends Canvas {
                     balle.inverserVitesseVerticale();
                 }
                 balle.dessiner(dessin);
+            }
+
+            ArrayList<Bonus> listeBonusAsupprimer = new ArrayList<>();
+
+            for(Bonus bonus : listeBonus) {
+                bonus.deplacement();
+
+                if(barre.collision(bonus)) {
+                    listeBonusAsupprimer.add(bonus);
+                    int vitesseHorizontale = (int)(Math.random() * 9) - 4;
+                    listeBalle.add(new Balle(bonus.getX(), barre.getY() - 21, vitesseHorizontale, -5));
+                } else if(bonus.getY() > HAUTEUR) {
+                    listeBonusAsupprimer.add(bonus);
+                }
+
+                bonus.dessiner(dessin);
+            }
+
+            for(Bonus bonus : listeBonusAsupprimer) {
+                listeBonus.remove(bonus);
             }
 
             dessin.dispose();
